@@ -1,3 +1,27 @@
 .select2-selection__choice{
     background-color: #433232 !important;
 }
+
+.image_product{
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    margin-top: 20px;
+}
+
+.container_image_detail{
+    margin-top: 20px;
+}
+
+.image_detail_product{
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    padding-left: 0;
+    padding-right: 0;
+    height: auto;
+    margin-top: -7px;
+}

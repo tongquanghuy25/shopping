@@ -12,7 +12,7 @@
 @section('content')
   <div class="content-wrapper">
       @include('partials.content-header', ['name' => 'Product', 'key' => 'Add'])
-      <form class="needs-validation" action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('products.update',['id' => $product->id]) }}" method="POST" enctype="multipart/form-data">
         <div class="content">
           <div class="container-fluid">
             <div class="row">
@@ -21,25 +21,21 @@
                     <div class="form-group">
                       <label>Tên sản phẩm</label>
                       <input type="text" 
-                      class="form-control @error('name') is-invalid @enderror" 
+                      class="form-control" 
                       name="name"
                       placeholder="Nhập tên sản phẩm"
-                      value="{{ old('name') }}">
-                      @error('name')
-                          <div class="text-sm" style="color: red">{{ $message }}</div>
-                      @enderror
+                      value="{{ $product->name }}"
+                      >
                     </div>
-                    
+
                     <div class="form-group">
                       <label>Giá sản phẩm</label>
                       <input type="text" 
-                      class="form-control @error('price') is-invalid @enderror" 
+                      class="form-control" 
                       name="price"
                       placeholder="Nhập giá sản phẩm"
-                      value="{{ old('price') }}">
-                      @error('price')
-                            <div class="text-sm" style="color: red">{{ $message }}</div>
-                      @enderror
+                      value="{{ $product->price }}"
+                      >
                     </div>
 
                     <div class="form-group">
@@ -47,6 +43,11 @@
                       <input type="file" 
                       class="form-control-file" 
                       name="feature_image_path">
+                      <div class="col-md-12">
+                        <div class="row">
+                            <img class="image_product" src="{{ $product->feature_image_path }}" alt="">
+                          </div>
+                      </div>
                     </div>
 
                     <div class="form-group">
@@ -55,37 +56,40 @@
                       multiple
                       class="form-control-file" 
                       name="image_path[]">
+                      <div class="col-md-12 container_image_detail">
+                        <div class="row">
+                            @foreach ($product->productImages as $productImage)
+                                <div class="col-md-3">
+                                    <img class="image_detail_product" src="{{ $productImage->image_path }}" alt="">
+                                </div>
+                            @endforeach
+                        </div>
+                      </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group ">
                         <label>Chọn danh mục</label>
                         <select class="form-control select-init" name="category_id">
                           <option value="">Chọn danh mục</option>
                           {!! $htmlOption !!}
                         </select>
-                        @error('category_id')
-                              <div class="text-sm" style="color: red">{{ $message }}</div>
-                        @enderror
-                    </div>
+                      </div>
 
-                    <div class="form-group">
-                      <label>Nhập tags sản phẩm</label>
-                      <select name="tags[]" class="form-control tags_select_chose" multiple="multiple">
-                        
-                      </select>  
-                    </div>
+                      <div class="form-group">
+                        <label>Nhập tags sản phẩm</label>
+                        <select name="tags[]" class="form-control tags_select_chose" multiple="multiple">
+                          @foreach ($product->tags as $tag)
+                            <option value="{{ $tag->name }}" selected>{{ $tag->name }}</option>    
+                          @endforeach
+                        </select>  
+                      </div>
 
               </div>
 
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="">Nhập nội dung</label>
-                  <textarea name="content" class="form-control tinymce_editor_init" srows="10">
-                    {{ old('content') }}
-                  </textarea>
-                  @error('content')
-                    <div class="text-sm" style="color: red">{{ $message }}</div>
-                  @enderror
+                  <textarea name="content" class="form-control tinymce_editor_init" srows="10">{{ $product->content }}</textarea>
                 </div>
               </div>
 

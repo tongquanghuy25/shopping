@@ -1,7 +1,7 @@
 $(function(){
     $(".tags_select_chose").select2({
     tags: true,
-    tokenSeparators: [',', ' ']
+    tokenSeparators: [',']
     });
 
     $(".select-init").select2({
